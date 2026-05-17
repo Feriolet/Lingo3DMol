@@ -328,24 +328,24 @@ class PocketCode():
         positions1 = positions1.tolist()
 
         
-        if (len(new_names)>500) or (len(positions1)>500) or (len(contact)>500) or (len(contact_scaffold)>500):
+        if (len(new_names)>1000) or (len(positions1)>1000) or (len(contact)>1000) or (len(contact_scaffold)>1000):
             raise "Exceeding the maximum dimensional limit"
 
-        final_symbol = new_names + [0] * (500 - len(new_names))
+        final_symbol = new_names + [0] * (1000 - len(new_names))
 
-        final_reses = new_reses + [0] * (500 - len(new_reses))
+        final_reses = new_reses + [0] * (1000 - len(new_reses))
 
-        final_pos = positions1 + [[0, 0, 0]] * (500 - len(positions1))
+        final_pos = positions1 + [[0, 0, 0]] * (1000 - len(positions1))
 
-        mask = [1] * len(new_names) + [0] * (500 - len(new_names))
+        mask = [1] * len(new_names) + [0] * (1000 - len(new_names))
 
-        contact = contact + [0] * (500 - len(contact))
+        contact = contact + [0] * (1000 - len(contact))
 
         contact_mask = np.where(np.array(final_symbol) == 1, 0, 1) * np.array(mask)
 
         contact = np.array(contact) * contact_mask
 
-        contact_scaffold = contact_scaffold+[0]*(500-len(contact_scaffold))
+        contact_scaffold = contact_scaffold+[0]*(1000-len(contact_scaffold))
 
         pos1 = final_pos[contact_start]
 
@@ -397,13 +397,15 @@ class PocketCode():
 
         new_names, new_reses, positions1, contact, contact_scaffold, _ = self.recode(names, reses, ll1, contact, contact_scaffold, None)
         positions1 = positions1.tolist()
-        final_symbol = new_names + [0] * (500 - len(new_names))
-        final_reses = new_reses + [0] * (500 - len(new_reses))
-        final_pos = positions1 + [[0, 0, 0]] * (500 - len(positions1))
-        mask = [1] * len(new_names) + [0] * (500 - len(new_names))
+        final_symbol = new_names + [0] * (1000 - len(new_names))
+        final_reses = new_reses + [0] * (1000 - len(new_reses))
+        final_pos = positions1 + [[0, 0, 0]] * (1000 - len(positions1))
+        mask = [1] * len(new_names) + [0] * (1000 - len(new_names))
 
-        contact = contact + [0] * (500 - len(contact))
+        contact = contact + [0] * (1000 - len(contact))
+        print(np.array(contact).shape)
+        print(np.array(mask).shape)
         contact = np.array(contact) * np.array(mask)
-        contact_scaffold = contact_scaffold+[0]*(500-len(contact_scaffold))
+        contact_scaffold = contact_scaffold+[0]*(1000-len(contact_scaffold))
 
         return final_symbol, final_reses, mask, np.array(final_pos), center, np.array(contact), np.array(contact_scaffold)

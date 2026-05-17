@@ -9,7 +9,7 @@
 
 
 import os
-os.sys.path.append('./')
+os.sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import torch
 import warnings
 import time
@@ -397,7 +397,7 @@ if __name__=='__main__':
     main(args)
 
     if args.cuda == str(args.cuda):
-        with open(args.save_time_path,'a') as f:
-            f.write(args.savedir+','+str(time.time()-start)+'\n')
+        with open(args.savedir + '/time.txt','a') as f:
+            f.write(str(time.time()-start)+'\n')
         print("alltime is",time.time()-start)
         now = datetime.now(tz)
